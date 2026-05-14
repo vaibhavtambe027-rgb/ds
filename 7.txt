@@ -1,0 +1,69 @@
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Download required NLTK resources (run once)
+nltk.download('punkt')
+nltk.download('punkt_tab')
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('averaged_perceptron_tagger_eng')  # <-- fixes your error
+
+# Sample document
+doc = "Natural Language is the Process that makes machines understand human language."
+
+# Tokenization
+tokens = word_tokenize(doc.lower())
+print("Tokens:", tokens)
+
+# POS Tagging
+pos_tags = nltk.pos_tag(tokens)
+print("POS Tags:", pos_tags)
+
+# Stopword Removal
+stop_words = set(stopwords.words('english'))
+filtered = [w for w in tokens if w not in stop_words]
+print("After Stopword Removal:", filtered)
+
+# Stemming
+stemmer = PorterStemmer()
+stemmed = [stemmer.stem(w) for w in filtered]
+print("Stemming:", stemmed)
+
+# Lemmatization
+lemmatizer = WordNetLemmatizer()
+lemmatized = [lemmatizer.lemmatize(w) for w in filtered]
+print("Lemmatization:", lemmatized)
+
+# TF-IDF Representation
+docs = [
+    "Natural Language Processing makes machines understand human language.",
+    "Text analytics includes preprocessing like tokenization and stemming."
+]
+vectorizer = TfidfVectorizer()
+tfidf = vectorizer.fit_transform(docs)
+
+print("\nFeature Names:", vectorizer.get_feature_names_out())
+print("TF-IDF Matrix:\n", tfidf.toarray())
+
+
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Sample documents
+docs = [
+    "Natural Language Processing makes machines understand human language.",
+    "Text analytics includes preprocessing like tokenization and stemming."
+]
+
+# TF-IDF
+vectorizer = TfidfVectorizer()
+tfidf = vectorizer.fit_transform(docs)
+
+# Convert to DataFrame
+df = pd.DataFrame(tfidf.toarray(), columns=vectorizer.get_feature_names_out(), index=["Doc1", "Doc2"])
+
+print(df)

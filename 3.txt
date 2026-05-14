@@ -1,0 +1,27 @@
+import pandas as pd
+data=pd.DataFrame(
+ {
+    "age": [22, 25, 27, 30, 35, 40, 45, 50, 28, 33],
+    "income": [20000, 25000, 27000, 30000, 35000, 40000, 42000, 45000, 29000, 32000]
+}
+)
+print("start")
+print(data)
+bins=[20,30,40,60]
+label=['young','adult','senior']
+data['age_group']=pd.cut(data['age'],bins=bins,labels=label )
+print("after grouping")
+print(data)
+gr=data.groupby(data['age_group'])["income"].describe()
+print("final")
+print(gr)
+print("\n\n\n*****************************")
+df=pd.read_csv(r"C:\Users\HP\PycharmProjects\pythonProject2\dataset\iris.csv")
+print("first 5 record\n",df.head())
+#print("last 5 records \n"df.tell())
+print("\n\nspecies=",df['species'].unique())
+gr=df.groupby(df["species"])
+print(gr)
+for species,data in gr:
+    print("\n\nspecies=",species)
+    print(data.describe())

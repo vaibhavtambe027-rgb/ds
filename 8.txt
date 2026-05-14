@@ -1,0 +1,33 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load dataset
+df = sns.load_dataset('titanic')
+
+# Display dataset
+print(df.head())
+
+# Shape
+print(df.shape)
+
+# Survival count
+sns.countplot(x='survived', data=df)
+
+plt.show()
+
+# Survival based on gender
+sns.countplot(x='survived', hue='sex', data=df)
+
+plt.show()
+
+# Histogram of fare
+sns.histplot(df['fare'], bins=30)
+
+plt.title("Fare Distribution")
+
+plt.xlabel("Fare")
+
+plt.ylabel("Count")
+
+plt.show()
