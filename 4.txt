@@ -41,3 +41,11 @@ r2 = r2_score(y_test, y_pred)
 # Step 12: Print Results
 print("Mean Squared Error:", mse)
 print("R2 Score:", r2)
+
+
+result = pd.DataFrame({
+    "Actual Price": y_test.values,
+    "Predicted Price": y_pred
+})
+
+print(result.head)
