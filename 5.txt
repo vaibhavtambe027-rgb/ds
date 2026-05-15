@@ -39,6 +39,16 @@ precision = precision_score(y_test, y_pred)
 recall = recall_score(y_test, y_pred)
 error_rate = 1 - accuracy
 
+X_test_original = sc.inverse_transform(X_test)
+result = pd.DataFrame({
+    "Age": X_test_original[:,0],
+    "EstimatedSalary": X_test_original[:,1],
+    "Actual Purchase": y_test.values,
+    "Predicted Purchase": y_pred
+})
+
+print (result)
+
 print("Accuracy:", accuracy)
 print("Error Rate:", error_rate)
 print("Precision:", precision)
